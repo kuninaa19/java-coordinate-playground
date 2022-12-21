@@ -5,7 +5,7 @@ public class Sonata extends Car {
     private static final double FUEL_EFFICIENCY = 10.0;
 
     public Sonata(int distance) {
-        super(NAME, distance);
+        super(distance);
     }
 
     @Override
@@ -16,5 +16,15 @@ public class Sonata extends Car {
     @Override
     double getTripDistance() {
         return this.distance.getDistance();
+    }
+
+    @Override
+    String getName() {
+        return NAME;
+    }
+
+    @Override
+    public String toString() {
+        return NAME + " : " + (int) getChargeQuantity() + "리터" + "\n";
     }
 }
