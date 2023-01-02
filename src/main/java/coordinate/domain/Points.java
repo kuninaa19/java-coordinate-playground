@@ -44,6 +44,14 @@ public class Points {
         return pointString.replaceAll(PointConstant.POINT_REGEX, PointConstant.POINT_REGEX_REPLACE).split(PointConstant.POINT_SEPARATOR);
     }
 
+    public Point getPoint(int idx) {
+        return this.points.get(idx);
+    }
+
+    public int count() {
+        return points.size();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
