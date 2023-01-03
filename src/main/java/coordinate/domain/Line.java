@@ -1,5 +1,7 @@
 package coordinate.domain;
 
+import coordinate.messages.ErrorMessages;
+
 public class Line {
 
     public static final int POINT_COUNT = 2;
@@ -21,7 +23,7 @@ public class Line {
 
     private void checkPointCount() {
         if (points.count() < POINT_COUNT) {
-            throw new IllegalArgumentException("점 2개가 필요합니다");
+            throw new IllegalArgumentException(ErrorMessages.LINE_LENGTH_EXCEPTION);
         }
     }
 
