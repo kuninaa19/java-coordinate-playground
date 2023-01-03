@@ -1,5 +1,6 @@
 package coordinate.views;
 
+import coordinate.domain.Line;
 import coordinate.domain.Point;
 import coordinate.domain.Points;
 
@@ -66,5 +67,9 @@ public class OutputView {
 
     private static void emptyLine() {
         System.out.println();
+    }
+
+    public static void printLine(Line line){
+        System.out.println(line);
     }
 }

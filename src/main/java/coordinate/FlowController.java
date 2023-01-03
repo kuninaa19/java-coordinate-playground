@@ -1,5 +1,6 @@
 package coordinate;
 
+import coordinate.domain.Line;
 import coordinate.domain.Points;
 import coordinate.inputs.Input;
 import coordinate.views.ErrorView;
@@ -11,6 +12,8 @@ public class FlowController {
         InputView.coordinateInputForm();
         Points points = createPoints();
         OutputView.printCoordinatePlate(points);
+        Line line = new Line(points);
+        OutputView.printLine(line);
     }
 
     private Points createPoints() {

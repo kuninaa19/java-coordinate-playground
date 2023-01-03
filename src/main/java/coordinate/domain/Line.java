@@ -24,4 +24,9 @@ public class Line {
             throw new IllegalArgumentException("점 2개가 필요합니다");
         }
     }
+
+    @Override
+    public String toString() {
+        return "두 점 사이 거리는 " + length();
+    }
 }
