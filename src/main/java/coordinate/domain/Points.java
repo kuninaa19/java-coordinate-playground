@@ -2,9 +2,7 @@ package coordinate.domain;
 
 import coordinate.constants.PointConstant;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Points {
     private final List<Point> points;
@@ -50,6 +48,10 @@ public class Points {
 
     public int count() {
         return points.size();
+    }
+
+    public boolean hasPoint(int x, int y) {
+        return points.stream().anyMatch(point -> point.equals(new Point(x, y)));
     }
 
     @Override
