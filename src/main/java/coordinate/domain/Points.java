@@ -54,6 +54,25 @@ public class Points {
         return points.stream().anyMatch(point -> point.equals(new Point(x, y)));
     }
 
+    public int getMaxPointX() {
+        Point max = this.points.stream().max(Comparator.comparing(Point::getX)).orElseThrow(NoSuchElementException::new);
+        return max.getX();
+    }
+
+    public int getMinPointX() {
+        Point min = this.points.stream().min(Comparator.comparing(Point::getX)).orElseThrow(NoSuchElementException::new);
+        return min.getX();
+    }
+    public int getMaxPointY() {
+        Point max = this.points.stream().max(Comparator.comparing(Point::getY)).orElseThrow(NoSuchElementException::new);
+        return max.getY();
+    }
+
+    public int getMinPointY() {
+        Point min = this.points.stream().min(Comparator.comparing(Point::getY)).orElseThrow(NoSuchElementException::new);
+        return min.getY();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

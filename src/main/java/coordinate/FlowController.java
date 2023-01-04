@@ -1,7 +1,7 @@
 package coordinate;
 
-import coordinate.domain.Line;
 import coordinate.domain.Points;
+import coordinate.domain.Rectangle;
 import coordinate.inputs.Input;
 import coordinate.views.ErrorView;
 import coordinate.views.InputView;
@@ -12,8 +12,9 @@ public class FlowController {
         InputView.coordinateInputForm();
         Points points = createPoints();
         OutputView.printCoordinatePlate(points);
-        Line line = new Line(points);
-        OutputView.printLine(line);
+
+        Rectangle rectangle = new Rectangle(points);
+        OutputView.printLine(rectangle);
     }
 
     private Points createPoints() {

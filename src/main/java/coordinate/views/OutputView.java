@@ -1,8 +1,8 @@
 package coordinate.views;
 
-import coordinate.domain.Line;
 import coordinate.domain.Point;
 import coordinate.domain.Points;
+import coordinate.domain.Rectangle;
 
 public class OutputView {
     public static String BLANK = "    ";
@@ -69,7 +69,7 @@ public class OutputView {
         System.out.println();
     }
 
-    public static void printLine(Line line){
-        System.out.println(line);
+    public static void printLine(Rectangle rectangle){
+        System.out.println(rectangle.getAreaString());
     }
 }
