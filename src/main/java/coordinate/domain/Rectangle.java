@@ -5,7 +5,7 @@ import coordinate.messages.ErrorMessages;
 import java.util.*;
 
 
-public class Rectangle {
+public class Rectangle implements Figure {
     public static final int POINT_COUNT = 4;
     public static final int EQUAL_POINT_CONDITION = 2;
     public static final int RECTANGLE_CONDITION = 4;
@@ -62,6 +62,7 @@ public class Rectangle {
         return coordinateY;
     }
 
+    @Override
     public int getArea() {
         int width = points.getMaxPointX() - points.getMinPointX();
         int height = points.getMaxPointY() - points.getMinPointY();
@@ -82,6 +83,7 @@ public class Rectangle {
         return Objects.hash(points);
     }
 
+    @Override
     public String getAreaString() {
         return "사각형의 넓이는 " + getArea();
     }

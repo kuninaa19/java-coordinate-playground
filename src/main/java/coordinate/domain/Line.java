@@ -2,7 +2,9 @@ package coordinate.domain;
 
 import coordinate.messages.ErrorMessages;
 
-public class Line {
+import java.util.Objects;
+
+public class Line implements Figure {
 
     public static final int POINT_COUNT = 2;
     private final Points points;
@@ -28,7 +30,25 @@ public class Line {
     }
 
     @Override
-    public String toString() {
+    public int getArea() {
+        return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Line line = (Line) o;
+        return Objects.equals(points, line.points);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(points);
+    }
+
+    @Override
+    public String getAreaString() {
         return "두 점 사이 거리는 " + length();
     }
 }

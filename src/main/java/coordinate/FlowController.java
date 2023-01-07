@@ -1,7 +1,8 @@
 package coordinate;
 
+import coordinate.domain.Figure;
+import coordinate.domain.FigureFactory;
 import coordinate.domain.Points;
-import coordinate.domain.Rectangle;
 import coordinate.inputs.Input;
 import coordinate.views.ErrorView;
 import coordinate.views.InputView;
@@ -13,8 +14,8 @@ public class FlowController {
         Points points = createPoints();
         OutputView.printCoordinatePlate(points);
 
-        Rectangle rectangle = new Rectangle(points);
-        OutputView.printLine(rectangle);
+        Figure figure = FigureFactory.createFigure(points);
+        OutputView.printArea(figure);
     }
 
     private Points createPoints() {
