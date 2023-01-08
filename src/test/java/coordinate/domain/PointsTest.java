@@ -34,7 +34,7 @@ public class PointsTest {
         assertThatThrownBy(() -> {
             Points points = new Points(inputs);
             Points point = new Points(inputs);
-        }).hasMessage(ErrorMessages.POINT_MIN_EXCEPTION);
+        }).hasMessage(Point.RANGE_MIN_EXCEPTION);
     }
 
     @Test

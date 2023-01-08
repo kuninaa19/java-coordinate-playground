@@ -1,6 +1,5 @@
 package coordinate.domain;
 
-import coordinate.messages.ErrorMessages;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +17,7 @@ public class PointTest {
         assertThatThrownBy(() -> {
             new Point(-1, 24);
             new Point(24, -1);
-        }).hasMessage(ErrorMessages.POINT_MIN_EXCEPTION);
+        }).hasMessage(Point.RANGE_MIN_EXCEPTION);
     }
 
     @Test
@@ -26,6 +25,6 @@ public class PointTest {
         assertThatThrownBy(() -> {
             new Point(25, 0);
             new Point(0, 25);
-        }).hasMessage(ErrorMessages.POINT_MAX_EXCEPTION);
+        }).hasMessage(Point.RANGE_MAX_EXCEPTION);
     }
 }
