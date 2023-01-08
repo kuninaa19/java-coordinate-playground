@@ -1,7 +1,9 @@
 package coordinate.domain;
 
-import coordinate.messages.ErrorMessages;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -10,27 +12,23 @@ public class RectangleTest {
 
     @Test
     void 직사각형_생성() {
-        String inputs = "(10,10)-(22,10)-(22,18)-(10,18)";
-        Points points = new Points(inputs);
+        List<Point> points = Arrays.asList(new Point(10, 10), new Point(22, 10), new Point(22, 18), new Point(10, 18));
 
         assertThat(new Rectangle(points)).isEqualTo(new Rectangle(points));
     }
 
     @Test
     void 직사각형_생성_오류() {
-        String inputs = "(10,10)-(22,10)-(22,18)-(10,8)";
-        Points points = new Points(inputs);
+        List<Point> points = Arrays.asList(new Point(10, 10), new Point(22, 10), new Point(22, 18), new Point(10, 8));
 
         assertThatThrownBy(() -> {
             new Rectangle(points);
-        }).hasMessage(ErrorMessages.RECTANGLE_EXCEPTION);
+        }).hasMessage(Rectangle.RECTANGLE_EXCEPTION);
     }
 
     @Test
     void 점_4개의_넓이_계산() {
-        String inputs = "(10,10)-(22,10)-(22,18)-(10,18)";
-        Points points = new Points(inputs);
-
+        List<Point> points = Arrays.asList(new Point(10, 10), new Point(22, 10), new Point(22, 18), new Point(10, 18));
         Rectangle rectangle = new Rectangle(points);
 
         assertThat(rectangle.getArea()).isEqualTo(96);
@@ -38,9 +36,7 @@ public class RectangleTest {
 
     @Test
     void 실행결과_출력() {
-        String inputs = "(10,10)-(22,10)-(22,18)-(10,18)";
-        Points points = new Points(inputs);
-
+        List<Point> points = Arrays.asList(new Point(10, 10), new Point(22, 10), new Point(22, 18), new Point(10, 18));
         Rectangle rectangle = new Rectangle(points);
 
         assertThat(rectangle.getAreaString()).isEqualTo("사각형의 넓이는 " + 96);

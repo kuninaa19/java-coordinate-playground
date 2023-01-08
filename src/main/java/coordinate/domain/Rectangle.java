@@ -1,33 +1,54 @@
 package coordinate.domain;
 
-import coordinate.messages.ErrorMessages;
-
 import java.util.*;
 
 
-public class Rectangle implements Figure {
+public class Rectangle extends Shape {
+    public static final String POINT_LACK_EXCEPTION = "점 4개가 필요합니다";
+    public static final String RECTANGLE_EXCEPTION = "직사각형이 아닙니다.";
+
     public static final int POINT_COUNT = 4;
     public static final int EQUAL_POINT_CONDITION = 2;
     public static final int RECTANGLE_CONDITION = 4;
-    private final Points points;
+    private final List<Point> points;
 
-    public Rectangle(Points points) {
+    public Rectangle(List<Point> points) {
         checkPointCount(points);
         checkRectangle(points);
 
         this.points = points;
     }
 
-    private void checkPointCount(Points points) {
-        if (points.count() < POINT_COUNT) {
-            throw new IllegalArgumentException(ErrorMessages.RECTANGLE_POINT_LACK_EXCEPTION);
+    private void checkPointCount(List<Point> points) {
+        if (points.size() != POINT_COUNT) {
+            throw new IllegalArgumentException(POINT_LACK_EXCEPTION);
         }
     }
 
-    private void checkRectangle(Points points) {
+    private void checkRectangle(List<Point> points) {
         if (!isRectangle(getCoordinateXPoints(points), getCoordinateYPoints(points))) {
-            throw new IllegalArgumentException(ErrorMessages.RECTANGLE_EXCEPTION);
+            throw new IllegalArgumentException(RECTANGLE_EXCEPTION);
         }
+    }
+
+    private int[] getCoordinateXPoints(List<Point> points) {
+        int[] coordinateX = new int[Point.MAX + 1];
+
+        for (Point point : points) {
+            coordinateX[point.getX()] += 1;
+        }
+
+        return coordinateX;
+    }
+
+    private int[] getCoordinateYPoints(List<Point> points) {
+        int[] coordinateY = new int[Point.MAX + 1];
+
+        for (Point point : points) {
+            coordinateY[point.getY()] += 1;
+        }
+
+        return coordinateY;
     }
 
     private boolean isRectangle(int[] coordinateXPoints, int[] coordinateYPoints) {
@@ -35,39 +56,31 @@ public class Rectangle implements Figure {
     }
 
     private int getPointSum(int[] points) {
-        return Arrays.stream(points).filter(p -> p == EQUAL_POINT_CONDITION).sum();
+        return Arrays.stream(points).filter(point -> point == EQUAL_POINT_CONDITION).sum();
     }
 
-    private int[] getCoordinateXPoints(Points points) {
-        int[] coordinateX = new int[Point.MAX + 1];
+    private int getWidth() {
+        Point max = this.points.stream().max(Comparator.comparing(Point::getX)).orElseThrow(NoSuchElementException::new);
+        Point min = this.points.stream().min(Comparator.comparing(Point::getX)).orElseThrow(NoSuchElementException::new);
 
-        for (int i = 0; i < points.count(); i++) {
-            /* bad case : get을 한다음 데이터 처리하지마라. */
-            Point point = points.getPoint(i);
-            coordinateX[point.getX()] += 1;
-        }
-
-        return coordinateX;
+        return max.getX() - min.getX();
     }
 
-    private int[] getCoordinateYPoints(Points points) {
-        int[] coordinateY = new int[Point.MAX + 1];
+    private int getHeight() {
+        Point max = this.points.stream().max(Comparator.comparing(Point::getY)).orElseThrow(NoSuchElementException::new);
+        Point min = this.points.stream().min(Comparator.comparing(Point::getY)).orElseThrow(NoSuchElementException::new);
 
-        for (int i = 0; i < points.count(); i++) {
-            /* bad case : get을 한다음 데이터 처리하지마라. */
-            Point point = points.getPoint(i);
-            coordinateY[point.getY()] += 1;
-        }
-
-        return coordinateY;
+        return max.getY() - min.getY();
     }
 
     @Override
-    public int getArea() {
-        int width = points.getMaxPointX() - points.getMinPointX();
-        int height = points.getMaxPointY() - points.getMinPointY();
+    public double getArea() {
+        return getWidth() * getHeight();
+    }
 
-        return width * height;
+    @Override
+    public String getAreaString() {
+        return "사각형의 넓이는 " + (int) getArea();
     }
 
     @Override
@@ -81,10 +94,5 @@ public class Rectangle implements Figure {
     @Override
     public int hashCode() {
         return Objects.hash(points);
-    }
-
-    @Override
-    public String getAreaString() {
-        return "사각형의 넓이는 " + getArea();
     }
 }
