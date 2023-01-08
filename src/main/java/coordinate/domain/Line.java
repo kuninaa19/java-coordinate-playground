@@ -2,29 +2,37 @@ package coordinate.domain;
 
 import coordinate.messages.ErrorMessages;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Line implements Figure {
 
     public static final int POINT_COUNT = 2;
-    private final Points points;
+    private final List<Point> points;
 
-    public Line(Points points) {
+    public Line(Points externalPoints) {
+        checkPointCount(externalPoints.count());
+        points = createLine(externalPoints);
+    }
 
-        this.points = points;
+    public Line(List<Point> externalPoints) {
+        checkPointCount(externalPoints.size());
+        points = externalPoints;
+    }
+
+    private static List<Point> createLine(Points points) {
+        return points.getIndicesPoints(0, 1);
     }
 
     public double length() {
-        checkPointCount();
-
-        Point a = points.getPoint(0);
-        Point b = points.getPoint(1);
+        Point a = points.get(0);
+        Point b = points.get(1);
 
         return Math.sqrt(Math.pow((a.getX() - b.getX()), 2) + Math.pow((a.getY() - b.getY()), 2));
     }
 
-    private void checkPointCount() {
-        if (points.count() < POINT_COUNT) {
+    private void checkPointCount(int count) {
+        if (count < POINT_COUNT) {
             throw new IllegalArgumentException(ErrorMessages.LINE_LENGTH_EXCEPTION);
         }
     }

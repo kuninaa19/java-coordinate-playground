@@ -20,9 +20,9 @@ public class LineTest {
     void 두_점_사이_거리_계산_에러_한개_이하의_점() {
         String inputs = "(10,10)";
         Points points = new Points(inputs);
-        Line line = new Line(points);
 
         assertThatThrownBy(() -> {
+            Line line = new Line(points);
             double distance = line.length();
         }).hasMessage(ErrorMessages.LINE_LENGTH_EXCEPTION);
     }
