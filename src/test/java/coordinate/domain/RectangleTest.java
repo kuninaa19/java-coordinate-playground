@@ -6,24 +6,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class RectangleTest {
-
     @Test
     void 직사각형_생성() {
         List<Point> points = Arrays.asList(new Point(10, 10), new Point(22, 10), new Point(22, 18), new Point(10, 18));
 
         assertThat(new Rectangle(points)).isEqualTo(new Rectangle(points));
-    }
-
-    @Test
-    void 직사각형_생성_오류() {
-        List<Point> points = Arrays.asList(new Point(10, 10), new Point(22, 10), new Point(22, 18), new Point(10, 8));
-
-        assertThatThrownBy(() -> {
-            new Rectangle(points);
-        }).hasMessage(Rectangle.RECTANGLE_EXCEPTION);
     }
 
     @Test

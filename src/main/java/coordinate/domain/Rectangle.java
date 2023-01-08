@@ -4,25 +4,15 @@ import java.util.*;
 
 
 public class Rectangle extends Shape {
-    public static final String POINT_LACK_EXCEPTION = "점 4개가 필요합니다";
     public static final String RECTANGLE_EXCEPTION = "직사각형이 아닙니다.";
-
-    public static final int POINT_COUNT = 4;
     public static final int EQUAL_POINT_CONDITION = 2;
     public static final int RECTANGLE_CONDITION = 4;
     private final List<Point> points;
 
     public Rectangle(List<Point> points) {
-        checkPointCount(points);
         checkRectangle(points);
 
         this.points = points;
-    }
-
-    private void checkPointCount(List<Point> points) {
-        if (points.size() != POINT_COUNT) {
-            throw new IllegalArgumentException(POINT_LACK_EXCEPTION);
-        }
     }
 
     private void checkRectangle(List<Point> points) {
