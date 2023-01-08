@@ -2,7 +2,6 @@ package coordinate.views;
 
 import coordinate.domain.Figure;
 import coordinate.domain.Point;
-import coordinate.domain.Points;
 import coordinate.domain.Shape;
 
 public class OutputView {
