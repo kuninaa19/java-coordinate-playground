@@ -5,19 +5,10 @@ import java.util.Objects;
 
 public class Line extends Shape {
     public static final String LENGTH_EXCEPTION = "점 2개가 필요합니다";
-    public static final int POINT_COUNT = 2;
     private final List<Point> points;
 
     public Line(List<Point> points) {
-        checkPointCount(points);
-
         this.points = points;
-    }
-
-    private void checkPointCount(List<Point> points) {
-        if (points.size() != POINT_COUNT) {
-            throw new IllegalArgumentException(LENGTH_EXCEPTION);
-        }
     }
 
     @Override

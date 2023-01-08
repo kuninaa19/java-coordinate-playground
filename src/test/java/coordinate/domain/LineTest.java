@@ -23,13 +23,4 @@ public class LineTest {
 
         assertThat(line.getArea()).isEqualTo(6.403, offset(0.001));
     }
-
-    @Test
-    void 에러_케이스_한개_이하의_점() {
-        List<Point> points = Arrays.asList(new Point(10, 10));
-
-        assertThatThrownBy(() -> {
-            Line line = new Line(points);
-        }).hasMessage(Line.LENGTH_EXCEPTION);
-    }
 }
