@@ -1,6 +1,7 @@
 package coordinate.domain;
 
 import coordinate.constants.PointConstant;
+import coordinate.messages.ErrorMessages;
 
 import java.util.*;
 
@@ -63,6 +64,7 @@ public class Points {
         Point min = this.points.stream().min(Comparator.comparing(Point::getX)).orElseThrow(NoSuchElementException::new);
         return min.getX();
     }
+
     public int getMaxPointY() {
         Point max = this.points.stream().max(Comparator.comparing(Point::getY)).orElseThrow(NoSuchElementException::new);
         return max.getY();
@@ -84,5 +86,15 @@ public class Points {
     @Override
     public int hashCode() {
         return Objects.hash(points);
+    }
+
+    public List<Point> getIndicesPoints(int i, int j) {
+        long count = points.size() - 1;
+
+        if (count < i || count < j) {
+            throw new IndexOutOfBoundsException(ErrorMessages.POINT_INDEX_EXCEPTION);
+        }
+
+        return Arrays.asList(points.get(i), points.get(j));
     }
 }
