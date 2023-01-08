@@ -11,6 +11,11 @@ public abstract class Shape implements Figure {
     }
 
     @Override
+    public List<Point> getPoints() {
+        return this.points;
+    }
+
+    @Override
     public Point getPoint(int idx) {
         return this.points.get(idx);
     }

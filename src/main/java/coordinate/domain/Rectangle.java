@@ -1,18 +1,17 @@
 package coordinate.domain;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Rectangle extends Shape {
     public static final String RECTANGLE_EXCEPTION = "직사각형이 아닙니다.";
     public static final int EQUAL_POINT_CONDITION = 2;
     public static final int RECTANGLE_CONDITION = 4;
-    private final List<Point> points;
 
     public Rectangle(List<Point> points) {
+        super(points);
         checkRectangle(points);
-
-        this.points = points;
     }
 
     private void checkRectangle(List<Point> points) {
@@ -49,40 +48,28 @@ public class Rectangle extends Shape {
         return Arrays.stream(points).filter(point -> point == EQUAL_POINT_CONDITION).sum();
     }
 
-    private int getWidth() {
-        Point max = this.points.stream().max(Comparator.comparing(Point::getX)).orElseThrow(NoSuchElementException::new);
-        Point min = this.points.stream().min(Comparator.comparing(Point::getX)).orElseThrow(NoSuchElementException::new);
+    private int getWidth(List<Point> points, Point standardPoint) {
+        List<Point> coordinates = points.stream().filter((point) -> point.getY() == standardPoint.getY()).collect(Collectors.toList());
 
-        return max.getX() - min.getX();
+        return coordinates.get(0).getX() - coordinates.get(1).getX();
     }
 
-    private int getHeight() {
-        Point max = this.points.stream().max(Comparator.comparing(Point::getY)).orElseThrow(NoSuchElementException::new);
-        Point min = this.points.stream().min(Comparator.comparing(Point::getY)).orElseThrow(NoSuchElementException::new);
+    private int getHeight(List<Point> points, Point standardPoint) {
+        List<Point> coordinates = points.stream().filter((point) -> point.getX() == standardPoint.getX()).collect(Collectors.toList());
 
-        return max.getY() - min.getY();
+        return coordinates.get(0).getY() - coordinates.get(1).getY();
     }
 
     @Override
     public double getArea() {
-        return getWidth() * getHeight();
+        List<Point> points = getPoints();
+        Point point = getPoint(0);
+
+        return getWidth(points, point) * getHeight(points, point);
     }
 
     @Override
     public String getAreaString() {
         return "사각형의 넓이는 " + (int) getArea();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Rectangle rectangle = (Rectangle) o;
-        return Objects.equals(points, rectangle.points);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(points);
     }
 }
