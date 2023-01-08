@@ -13,6 +13,10 @@ public class FigureFactory {
             return new Rectangle(points);
         }
 
+        if(points.count() == Triangle.POINT_COUNT){
+            return new Triangle(points);
+        }
+
         throw new IllegalArgumentException(ErrorMessages.FIGURE_EXCEPTION);
     }
 }
