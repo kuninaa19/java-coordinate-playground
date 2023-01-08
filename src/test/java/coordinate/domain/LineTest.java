@@ -1,29 +1,35 @@
 package coordinate.domain;
 
-import coordinate.messages.ErrorMessages;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
 public class LineTest {
     @Test
-    void 두_점_사이_거리_계산() {
-        String inputs = "(10,10)-(14,15)";
-        Points points = new Points(inputs);
-
+    void 선_생성() {
+        List<Point> points = Arrays.asList(new Point(10, 10), new Point(14, 15));
         Line line = new Line(points);
 
-        assertThat(line.length()).isEqualTo(6.403, offset(0.001));
+        assertThat(line).isEqualTo(new Line(points));
     }
 
     @Test
-    void 두_점_사이_거리_계산_에러_한개_이하의_점() {
-        String inputs = "(10,10)";
-        Points points = new Points(inputs);
+    void 두_점_사이_거리_계산() {
+        List<Point> points = Arrays.asList(new Point(10, 10), new Point(14, 15));
+        Line line = new Line(points);
+
+        assertThat(line.getArea()).isEqualTo(6.403, offset(0.001));
+    }
+
+    @Test
+    void 에러_케이스_한개_이하의_점() {
+        List<Point> points = Arrays.asList(new Point(10, 10));
 
         assertThatThrownBy(() -> {
             Line line = new Line(points);
-            double distance = line.length();
-        }).hasMessage(ErrorMessages.LINE_LENGTH_EXCEPTION);
+        }).hasMessage(Line.LENGTH_EXCEPTION);
     }
 }
