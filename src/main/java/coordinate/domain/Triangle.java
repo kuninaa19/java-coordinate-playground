@@ -1,42 +1,44 @@
 package coordinate.domain;
 
-import coordinate.messages.ErrorMessages;
+import java.util.*;
 
-import java.util.Arrays;
-import java.util.Objects;
+public class Triangle extends Shape {
+    public static final String TRIANGLE_EXCEPTION = "삼각형이 아닙니다.";
+    private final List<Point> points;
 
-public class Triangle implements Figure {
-    public static final int POINT_COUNT = 3;
-    private final Points points;
-
-    public Triangle(Points points) {
-        checkPointCount(points);
+    public Triangle(List<Point> points) {
         isTriangle(points);
 
         this.points = points;
     }
 
-    private void checkPointCount(Points points) {
-        if (points.count() != POINT_COUNT) {
-            throw new IllegalArgumentException(ErrorMessages.TRIANGLE_POINT_LACK_EXCEPTION);
-        }
-    }
+    private void isTriangle(List<Point> points) {
+        Point maxX = points.stream().max(Comparator.comparing(Point::getX)).orElseThrow(NoSuchElementException::new);
+        Point minX = points.stream().min(Comparator.comparing(Point::getX)).orElseThrow(NoSuchElementException::new);
 
-    private void isTriangle(Points points) {
-        if (points.getMaxPointX() == points.getMinPointX() || points.getMaxPointY() == points.getMinPointY()) {
-            throw new IllegalArgumentException(ErrorMessages.TRIANGLE_EXCEPTION);
+        Point maxY = points.stream().max(Comparator.comparing(Point::getY)).orElseThrow(NoSuchElementException::new);
+        Point minY = points.stream().min(Comparator.comparing(Point::getY)).orElseThrow(NoSuchElementException::new);
+
+        if (maxX.getX() == minX.getX() || maxY.getY() == minY.getY()) {
+            throw new IllegalArgumentException(TRIANGLE_EXCEPTION);
         }
     }
 
     /* 삼각형 넓이 구하기: https://ko.wikipedia.org/wiki/헤론의_공식 */
-    public double area() {
-        Line lineA = new Line(points.getIndicesPoints(0, 1));
-        Line lineB = new Line(points.getIndicesPoints(1, 2));
-        Line lineC = new Line(points.getIndicesPoints(2, 0));
+    @Override
+    public double getArea() {
+        Line lineA = new Line(Arrays.asList(points.get(0), points.get(1)));
+        Line lineB = new Line(Arrays.asList(points.get(1), points.get(2)));
+        Line lineC = new Line(Arrays.asList(points.get(2), points.get(0)));
 
-        double s = (lineA.length() + lineB.length() + lineC.length()) / 2;
+        double s = (lineA.getArea() + lineB.getArea() + lineC.getArea()) / 2;
 
-        return Math.sqrt(s * (s - lineA.length()) * (s - lineB.length()) * (s - lineC.length()));
+        return Math.sqrt(s * (s - lineA.getArea()) * (s - lineB.getArea()) * (s - lineC.getArea()));
+    }
+
+    @Override
+    public String getAreaString() {
+        return "삼각형 넓이는 " + getArea();
     }
 
     @Override
@@ -50,16 +52,5 @@ public class Triangle implements Figure {
     @Override
     public int hashCode() {
         return Objects.hash(points);
-    }
-
-    @Override
-    public int getArea() {
-        /* 타입 변경 예정 */
-        return 0;
-    }
-
-    @Override
-    public String getAreaString() {
-        return "삼각형 넓이는 " + area();
     }
 }
