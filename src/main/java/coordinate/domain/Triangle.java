@@ -4,12 +4,10 @@ import java.util.*;
 
 public class Triangle extends Shape {
     public static final String TRIANGLE_EXCEPTION = "삼각형이 아닙니다.";
-    private final List<Point> points;
 
     public Triangle(List<Point> points) {
+        super(points);
         isTriangle(points);
-
-        this.points = points;
     }
 
     private void isTriangle(List<Point> points) {
@@ -27,9 +25,9 @@ public class Triangle extends Shape {
     /* 삼각형 넓이 구하기: https://ko.wikipedia.org/wiki/헤론의_공식 */
     @Override
     public double getArea() {
-        Line lineA = new Line(Arrays.asList(points.get(0), points.get(1)));
-        Line lineB = new Line(Arrays.asList(points.get(1), points.get(2)));
-        Line lineC = new Line(Arrays.asList(points.get(2), points.get(0)));
+        Line lineA = new Line(Arrays.asList(getPoint(0), getPoint(1)));
+        Line lineB = new Line(Arrays.asList(getPoint(1), getPoint(2)));
+        Line lineC = new Line(Arrays.asList(getPoint(2), getPoint(0)));
 
         double s = (lineA.getArea() + lineB.getArea() + lineC.getArea()) / 2;
 
@@ -39,18 +37,5 @@ public class Triangle extends Shape {
     @Override
     public String getAreaString() {
         return "삼각형 넓이는 " + getArea();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Triangle triangle = (Triangle) o;
-        return Objects.equals(points, triangle.points);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(points);
     }
 }

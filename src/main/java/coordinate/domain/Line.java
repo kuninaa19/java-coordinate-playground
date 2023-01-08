@@ -1,20 +1,16 @@
 package coordinate.domain;
 
 import java.util.List;
-import java.util.Objects;
 
 public class Line extends Shape {
-    public static final String LENGTH_EXCEPTION = "점 2개가 필요합니다";
-    private final List<Point> points;
-
     public Line(List<Point> points) {
-        this.points = points;
+        super(points);
     }
 
     @Override
     public double getArea() {
-        Point a = points.get(0);
-        Point b = points.get(1);
+        Point a = getPoint(0);
+        Point b = getPoint(1);
 
         return Math.sqrt(Math.pow((a.getX() - b.getX()), 2) + Math.pow((a.getY() - b.getY()), 2));
     }
@@ -22,18 +18,5 @@ public class Line extends Shape {
     @Override
     public String getAreaString() {
         return "두 점 사이 거리는 " + getArea();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Line line = (Line) o;
-        return Objects.equals(points, line.points);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(points);
     }
 }
