@@ -2,7 +2,8 @@ package coordinate.domain;
 
 
 public interface Figure {
-    int getArea();
+
+    double getArea();
 
     String getAreaString();
 }
