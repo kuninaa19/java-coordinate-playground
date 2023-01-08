@@ -3,6 +3,7 @@ package coordinate.views;
 import coordinate.domain.Figure;
 import coordinate.domain.Point;
 import coordinate.domain.Points;
+import coordinate.domain.Shape;
 
 public class OutputView {
     public static String BLANK = "    ";
@@ -11,17 +12,17 @@ public class OutputView {
     public static String HORIZON_LINE = "----";
     public static String VERTICAL_LINE = "|";
 
-    public static void printCoordinatePlate(Points points) {
-        printVerticalNumbers(points);
+    public static void printCoordinatePlate(Shape shape) {
+        printVerticalNumbers(shape);
         printHorizonLine();
         printHorizonNumbers();
     }
 
-    private static void printVerticalNumbers(Points points) {
+    private static void printVerticalNumbers(Shape shape) {
         for (int y = Point.MAX; y > Point.MIN; y--) {
             printNumbers(y);
             System.out.print(VERTICAL_LINE);
-            printPoints(points, y);
+            printPoints(shape, y);
             emptyLine();
         }
     }
@@ -36,9 +37,9 @@ public class OutputView {
     }
 
 
-    private static void printPoints(Points points, int y) {
+    private static void printPoints(Shape shape, int y) {
         for (int x = Point.MIN + 1; x <= Point.MAX; x++) {
-            if (points.hasPoint(x, y)) {
+            if (shape.hasPoint(x, y)) {
                 System.out.printf("%3s", POINT);
                 continue;
             }
@@ -70,6 +71,7 @@ public class OutputView {
     }
 
     public static void printArea(Figure figure){
+        emptyLine();
         System.out.println(figure.getAreaString());
     }
 }
