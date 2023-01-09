@@ -15,22 +15,22 @@ public class Rectangle extends Shape {
     }
 
     private void checkRectangle(List<Point> points) {
-        if (!isRectangle(getCoordinateXPoints(points), getCoordinateYPoints(points))) {
+        if (!isRectangle(getCoordinateX(points), getCoordinateY(points))) {
             throw new IllegalArgumentException(RECTANGLE_EXCEPTION);
         }
     }
 
-    private int[] getCoordinateXPoints(List<Point> points) {
-        int[] coordinateX = new int[Point.MAX + 1];
+    private int[] getCoordinateX(List<Point> points) {
+        int[] coordinates = new int[Point.MAX + 1];
 
         for (Point point : points) {
-            coordinateX[point.getX()] += 1;
+            coordinates[point.getX()] += 1;
         }
 
-        return coordinateX;
+        return coordinates;
     }
 
-    private int[] getCoordinateYPoints(List<Point> points) {
+    private int[] getCoordinateY(List<Point> points) {
         int[] coordinateY = new int[Point.MAX + 1];
 
         for (Point point : points) {
@@ -40,11 +40,11 @@ public class Rectangle extends Shape {
         return coordinateY;
     }
 
-    private boolean isRectangle(int[] coordinateXPoints, int[] coordinateYPoints) {
-        return getPointSum(coordinateXPoints) == RECTANGLE_CONDITION && getPointSum(coordinateYPoints) == RECTANGLE_CONDITION;
+    private boolean isRectangle(int[] coordinateX, int[] coordinateY) {
+        return countCoordinate(coordinateX) == RECTANGLE_CONDITION && countCoordinate(coordinateY) == RECTANGLE_CONDITION;
     }
 
-    private int getPointSum(int[] points) {
+    private int countCoordinate(int[] points) {
         return Arrays.stream(points).filter(point -> point == EQUAL_POINT_CONDITION).sum();
     }
 
