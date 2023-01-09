@@ -15,7 +15,7 @@ public class Input {
     public static final String POINT_REGEX_REPLACE = "";
     public static final String POINT_SEPARATOR = ",";
 
-    public static String read() {
+    private static String read() {
         return new Scanner(System.in).nextLine();
     }
 
@@ -31,17 +31,17 @@ public class Input {
     }
 
     private static List<Point> createPoints(String inputs) {
-        List<Point> tempPoints = new ArrayList<>();
+        List<Point> points = new ArrayList<>();
 
         String[] pointsString = splitMultiPointsString(inputs);
 
         for (String pointString : pointsString) {
             Point point = createPoint(pointString);
 
-            tempPoints.add(point);
+            points.add(point);
         }
 
-        return tempPoints;
+        return points;
     }
 
     private static String[] splitMultiPointsString(String inputs) {
@@ -49,7 +49,7 @@ public class Input {
     }
 
     private static Point createPoint(String pointString) {
-        String[] extractedPoint = getExtractedPoint(pointString);
+        String[] extractedPoint = extractPoint(pointString);
 
         int x = Integer.parseInt(extractedPoint[0]);
         int y = Integer.parseInt(extractedPoint[1]);
@@ -57,7 +57,7 @@ public class Input {
         return new Point(x, y);
     }
 
-    private static String[] getExtractedPoint(String pointString) {
+    private static String[] extractPoint(String pointString) {
         return pointString.replaceAll(POINT_REGEX, POINT_REGEX_REPLACE).split(POINT_SEPARATOR);
     }
 }
